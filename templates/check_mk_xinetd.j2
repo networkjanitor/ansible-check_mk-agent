@@ -1,0 +1,17 @@
+service check_mk
+{
+	type		= {{ xinetd_type }}
+	port		= {{ xinetd_port }}
+	socket_type	= {{ xinetd_socket_type }}
+	protocol	= {{ xinetd_protocol }}
+	wait		= {{ xinetd_wait }}
+	user		= {{ xinetd_user }}
+	server		= {{ xinetd_server }}
+# you can put ip address of your nagios/check_mk/omd/whatever server here 
+{% if xinetd_ip_filter %}
+	only_from       = {{ xinetd_only_from }}
+{% else %}
+#	only_from	= 127.0.0.1 10.0.20.1 10.0.20.2
+{% endif %}
+	disable		= {{ xinetd_disable }}
+}

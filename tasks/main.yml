@@ -1,0 +1,23 @@
+---
+# tasks file for galaxy-skeleton
+
+- name: ensure xinetd is installed
+  apt:
+    name: xinetd
+    update_cache: yes
+  become: true
+
+- name: ensure check_mk agent is installed
+  apt:
+    deb: {{ checkmk_agent_deb_url }}
+  become: true
+
+- name: ensure xinetd check_mk config is present
+  template: 
+    dest: /etc/xinetd.d/check_mk
+    src: check_mk_xinetd.j2
+  register: xinetd_conf
+
+- name: restart xinetd
+  command: /etc/init.d/xinetd restart
+  when: xinetd_conf.changed
