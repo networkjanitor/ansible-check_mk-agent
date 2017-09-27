@@ -9,7 +9,7 @@
 
 - name: ensure check_mk agent is installed
   apt:
-    deb: {{ checkmk_agent_deb_url }}
+    deb: "{{ checkmk_agent_deb_url }}"
   become: true
 
 - name: ensure xinetd check_mk config is present
