@@ -17,7 +17,9 @@
     dest: /etc/xinetd.d/check_mk
     src: check_mk_xinetd.j2
   register: xinetd_conf
+  become: true
 
 - name: restart xinetd
   command: /etc/init.d/xinetd restart
   when: xinetd_conf.changed
+  become: true
